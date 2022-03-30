@@ -15,7 +15,7 @@ The developing structure is self similar like a mathematical fractal, but depend
 the structure can change completely to a chaotic field of lines. The fragile construct needs a certain input 
 to remain ordered as regular arrows.
 
-The coordinates of the vortex of the arrows are stored in a matrix (7*N*2), N is the number of arrows, with the indicees.
+The coordinates of the vortex of the arrows are stored in a matrix (7*N*2), N is the number of arrows, with the indices.
 
 
   
