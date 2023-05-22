@@ -17,7 +17,8 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
   float R = 0;
   float G = 255;
   float B = 255;
-  
+  float centerx = width/2;
+  float centery = height/2;
   //nal = newarrows.length;
   N  = 2^(ebenen+1) -1; 
   nal = newarrows.length-1; //=7
@@ -29,7 +30,7 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
        for (int j = 0; j< nal;j++){
          jj = j+1;
          if (j == nal-1){  jj = 0;  }
-         line( width/2 + newarrows[j][0][i], height/2 -newarrows[j][1][i] , width/2 + newarrows[jj][0][i],height/2 - newarrows[jj][1][i] );               
+         line( centerx + newarrows[j][0][i], centery -newarrows[j][1][i] , centerx + newarrows[jj][0][i],centery - newarrows[jj][1][i] );               
        }
       }
     //------------------------------------------------------------------
@@ -58,7 +59,7 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
          }
          jj = j+1;
          if (j == nal-1){ jj = 0; }
-         line(width/2 + newarrows[j][0][i], height/2 -  newarrows[j][1][i] , width/2  + newarrows[jj][0][i], height/2   -  newarrows[jj][1][i] );
+         line(centerx + newarrows[j][0][i], centery -  newarrows[j][1][i] , centerx  + newarrows[jj][0][i], centery   -  newarrows[jj][1][i] );
     
        }
       }
@@ -72,7 +73,7 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
        for (int j = 0; j< nal;j++){
          jj = j+1;
          if (j == nal-1){  jj = 0;  }
-         line( width/2 + newarrows[j][0][i], height/2 -newarrows[j][1][i] , width/2 + newarrows[jj][0][i],height/2 - newarrows[jj][1][i] );               
+         line( centerx + newarrows[j][0][i], centery -newarrows[j][1][i] , centerx + newarrows[jj][0][i],centery - newarrows[jj][1][i] );               
        }
       }
     //------------------------------------------------------------------
@@ -97,7 +98,7 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
          }
          jj = j+1;
          if (j == nal-1){ jj = 0; }
-         line(width/2 + newarrows[j][0][i], height/2 -  newarrows[j][1][i] , width/2  + newarrows[jj][0][i], height/2   -  newarrows[jj][1][i] );
+         line(centerx + newarrows[j][0][i], centery -  newarrows[j][1][i] , centerx  + newarrows[jj][0][i], centery   -  newarrows[jj][1][i] );
     
        }
       }
