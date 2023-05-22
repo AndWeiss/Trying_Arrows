@@ -1,4 +1,4 @@
-
+import processing.javafx.*;
 import ddf.minim.analysis.*;
 import ddf.minim.*;
 import papaya.*;
@@ -84,7 +84,8 @@ WindowFunction newWindow = FFT.NONE;
 void setup() 
 {
   //size(1900, 1000,P2D); //FX2D  or P2D
-  fullScreen(FX2D, SPAN);
+  size(1900, 1000,FX2D); 
+  //fullScreen(FX2D); //, SPAN);
   noFill();
   //background(0);
   //stroke(255);
@@ -114,14 +115,14 @@ void setup()
   limits[2] =  buffer/2 ; //high frequencies (end frequency)
 }
 
-
+/*
 void mouseWheel(MouseEvent event) {
   float e = event.getAmount();   //Winkel<---------------------------------------------
   alpha = alpha + e/50;
   alpha1 = alpha;
   //println(e);
   }  
-  
+ */
   
 void keyPressed() {
   final int k = keyCode;
