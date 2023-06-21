@@ -21,6 +21,13 @@ float b1_0 = 100; // Breite der Pfeile gesamt
 float b2_0 = 5;// Breite der stengel
 float l_0 =   100 ;// Die Länge des Stiels
 float mitte_0 = 0.5;
+// initial values for slowing down
+float slow_alpha = alpha_0;
+float slow_b1    = b1_0;
+float slow_b2    = b2_0;
+float slow_l     = l_0;
+float slow_distance = 50;
+float slowfac    = 1000;
 ////-----------------------------------------------
 float alpha = alpha_0;
 float alpha1 =  alpha_0;
@@ -39,7 +46,7 @@ float b1fak = 0.6;
 float b2fak = 15;
 float lfak = 5;
 float alphafreq = 0;
-float strokewidth=1;
+float strokewidth=0.2;
 float sign;
 int backy = 0;
 float lauf = 0.0;
@@ -55,13 +62,13 @@ boolean savebool = false;
 boolean b1bool = true;
 boolean b2bool = true;
 boolean lbool = true;
-boolean alphabool = false;
+boolean alphabool = true;
 //for the colors
 boolean colorbool = false;
-boolean balls = false;
+int shapetype = 1;
 
 int N, nal, jj, numarrows ;
-int ebenen = 0;
+int ebenen = 9;
 float[] mousept = new float[2];
 int buffer = 1024;
 float[] beatarray = new float[buffer];
@@ -88,7 +95,7 @@ void setup()
   //fullScreen(FX2D); //, SPAN);
   noFill();
   //background(0);
-  //stroke(255);
+  stroke(255);
   //strokeWeight(1);
   //strokeCap(SQUARE);
   /*size(640, 360);  // Size should be the first statement
@@ -128,8 +135,13 @@ void keyPressed() {
   final int k = keyCode;
   if (k >47 && k < 58){ ebenen = k - 48; }//tasten 0 bis 9
   //Schwarz auf weiss oder weiss auf schwarz
-  else if (k == 66){ backy = 0 ;} //taste b
-  else if (k == 87){ backy = 255;  }//taste w
+  else if (k == 66){ backy = 0 ; 
+  stroke(255);
+  } //taste b
+  else if (k == 87){ 
+  backy = 255; 
+  stroke(0);
+  }//taste w
  //Gesamtfaktor 
   else if (k == 70){  //taste f
     if (abs(fak) < 1) {fak = fak + 0.1;}
@@ -180,13 +192,13 @@ void keyPressed() {
   }
   //the angle of the arrows taste up
   else if (k == 38){
-    alpha = alpha + PI/180;
-    alpha1 = alpha;
+    slowfac +=500;
   }
   //the angle of the arrows taste down
   else if (k==40) {
-    alpha = alpha - PI/180;
-    alpha1 = alpha;
+    slowfac += -500;
+    slowfac = max(slowfac,1);
+    println(slowfac);
   }
   //rotation x and y---------------------------------
   else if (k==88)  { //x
@@ -216,15 +228,20 @@ void keyPressed() {
  //45 = - turn off l
  else if (k == 47){ lbool = ! lbool ;  }
  //521 = * turn off alpha
- else if (k == 521){ alphabool = ! alphabool ;  }
+ else if (k == 93){ alphabool = ! alphabool ;  }
  //67 = c makes the alphafak lower
  else if (k == 67){ alphafak -= 0.1;  }
  //86 = v makes the alphafak higher
  else if (k == 86){alphafak += 0.1;  }
  // Enter key makes the lines colorfull
- else if (k == 10){colorbool = ! colorbool; }
+ else if (k == 10){
+   colorbool = ! colorbool; 
+   if(colorbool == false)
+     {stroke(255);}
+ 
+ }
  // 113 = q makes draw balls instead of lines
- else if (k==69){balls= ! balls;}
+ else if (k==69){shapetype = (shapetype + 1) % 4;}
  println(keyCode);
   }
   
@@ -238,10 +255,16 @@ void draw() {
     } 
   
     //if (mouseButton == LEFT){
-    background(backy);
+    
+      
+    
+    
     strokeWeight(strokewidth); //strichbreite
     //}
    lauf+= 0.01;
+
+   background(backy);
+   
    beat = 0;
    beatmittel = 0;
    amp = 0;
@@ -337,20 +360,33 @@ void draw() {
    v1 = b1/b2;
    v2 = b1/l;
    //--------------------------------------------------
-   newarrows = makeArrow(alpha,b1,b2,l,mitte,alpha1,mousept,rotphi);
-
+   // slow down the parameter change
+   slow_alpha    = (slow_alpha + alpha/slowfac)/(1+1/slowfac);
+   slow_b1       = (slow_b1 + b1/slowfac)/(1+1/slowfac);
+   slow_b2       = (slow_b2 + b2/slowfac)/(1+1/slowfac);
+   slow_l        = (slow_l +  l/slowfac )/(1+1/slowfac);
+   alpha1        = slow_alpha;
+   slow_distance = (slow_distance +  distance/slowfac )/(1+1/slowfac);
+   distance      = slow_distance;
+   newarrows = makeArrow(slow_alpha,slow_b1,slow_b2,slow_l,mitte,alpha1,mousept,rotphi);
+   //newarrows = makeArrow(alpha,b1,b2,l,mitte,alpha1,mousept,rotphi);
    //println(nal);
    //float[][][] arrows = new float[7][2][N];
    //arrows = zeros(7,2,N);
    //newarrows = arrow;
    //arrows.add(arrow);
    //Zeichnen--------------------------------------------------------------------------
-   if(balls){
-     //printballs();
-     printsplines();
+   if(shapetype == 0){
+     printarrows(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);   
    }
-   else{
-    printarrows(newarrows,alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
+   else if (shapetype == 1){
+     printballs(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
+   }
+   else if (shapetype == 2){ 
+     printsplines(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
+   }
+   else if (shapetype == 3){ 
+     printtriangles(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
    }
     //------------------------------------------------------------------------------------------
   

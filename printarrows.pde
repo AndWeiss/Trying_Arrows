@@ -67,7 +67,7 @@ void printarrows(float newarrows[][][],float alpha,float mitte,float v1,float v2
   }
   //make only white lines
   else{
-    stroke(255);
+    //stroke(255);
      //der erste Pfeil----------------------------------------------------
     for (int i = 0; i< newarrows[0][0].length;i++){
        for (int j = 0; j< nal;j++){

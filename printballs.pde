@@ -13,7 +13,7 @@
   %                    |         |
   %                    5---------4
   %*/
-void printballs(){
+void printballs(float newarrows[][][],float alpha,float mitte,float v1,float v2,float alpha1, int ebenen, boolean colorbool){
   float R = 0;
   float G = 255;
   float B = 255;
@@ -66,13 +66,13 @@ void printballs(){
   }
   //make only white lines
   else{
-    stroke(255);
+    //stroke(255);
      //der erste Pfeil----------------------------------------------------
     for (int i = 0; i< newarrows[0][0].length;i++){
        for (int j = 0; j< nal;j++){
          jj = j+1;
          if (j == nal-1){  jj = 0;  }
-         ellipse( width/2 + newarrows[j][0][i], height/2 -newarrows[j][1][i] , v1,v2 );                
+         ellipse( width/2 + newarrows[j][0][i], height/2 -newarrows[j][1][i] , v1,v1 );                
        }
       }
     //------------------------------------------------------------------
@@ -97,7 +97,7 @@ void printballs(){
          }
          jj = j+1;
          if (j == nal-1){ jj = 0; }
-         ellipse(width/2 + newarrows[j][0][i], height/2 -  newarrows[j][1][i],v1,v2);
+         ellipse(width/2 + newarrows[j][0][i], height/2 -  newarrows[j][1][i],v1,v1);
     
        }
       }
