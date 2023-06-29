@@ -34,8 +34,8 @@
      }
   cosphi = cos(rotphi);
   sinphi = sin(rotphi);
-  v1 = b1/b2;
-  v2 = b1/l;
+  // v1 = b1/b2;
+  // v2 = b1/l;
   arrow[0][0][0] = mousept[0] - b1/2; //0
   arrow[0][1][0]= mousept[1];
   arrow[2][0][0] = mousept[0] + b1/2;

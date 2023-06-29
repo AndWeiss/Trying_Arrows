@@ -27,7 +27,7 @@ float slow_b1    = b1_0;
 float slow_b2    = b2_0;
 float slow_l     = l_0;
 float slow_distance = 50;
-float slowfac    = 1000;
+float slowfac    = 500;
 ////-----------------------------------------------
 float alpha = alpha_0;
 float alpha1 =  alpha_0;
@@ -66,9 +66,9 @@ boolean alphabool = true;
 //for the colors
 boolean colorbool = false;
 int shapetype = 1;
-
+int linecolor = 255;
 int N, nal, jj, numarrows ;
-int ebenen = 9;
+int ebenen = 5;
 float[] mousept = new float[2];
 int buffer = 1024;
 float[] beatarray = new float[buffer];
@@ -86,7 +86,8 @@ ArrayList<float[][][]> arrows;
 WindowFunction newWindow = FFT.NONE;
 //--------------------------------------------------------------------
 //float[][][] bla = new float[5][5][5];
-
+float centerx = width/2;
+float centery = height/2;
 
 void setup() 
 {
@@ -95,7 +96,9 @@ void setup()
   //fullScreen(FX2D); //, SPAN);
   noFill();
   //background(0);
-  stroke(255);
+  stroke(linecolor);
+  centerx = width/2;
+  centery = height/2;
   //strokeWeight(1);
   //strokeCap(SQUARE);
   /*size(640, 360);  // Size should be the first statement
@@ -135,12 +138,15 @@ void keyPressed() {
   final int k = keyCode;
   if (k >47 && k < 58){ ebenen = k - 48; }//tasten 0 bis 9
   //Schwarz auf weiss oder weiss auf schwarz
-  else if (k == 66){ backy = 0 ; 
-  stroke(255);
+  else if (k == 66){ 
+    backy = 0 ; 
+    linecolor = 255;
+    stroke(linecolor);
   } //taste b
   else if (k == 87){ 
-  backy = 255; 
-  stroke(0);
+    backy = 255; 
+    linecolor = 0;
+    stroke(linecolor);
   }//taste w
  //Gesamtfaktor 
   else if (k == 70){  //taste f
@@ -221,33 +227,31 @@ void keyPressed() {
     //savebool = ! savebool ;
     println("savebool is: ", savebool);
     }
- //44 = , turn off b1
- else if (k == 44){  b1bool = ! b1bool;  }
- //46 = . turn off b2
- else if (k == 46){ b2bool = ! b2bool  ; }
- //45 = - turn off l
- else if (k == 47){ lbool = ! lbool ;  }
- //521 = * turn off alpha
- else if (k == 93){ alphabool = ! alphabool ;  }
- //67 = c makes the alphafak lower
- else if (k == 67){ alphafak -= 0.1;  }
- //86 = v makes the alphafak higher
- else if (k == 86){alphafak += 0.1;  }
- // Enter key makes the lines colorfull
- else if (k == 10){
-   colorbool = ! colorbool; 
-   if(colorbool == false)
-     {stroke(255);}
- 
- }
- // 113 = q makes draw balls instead of lines
- else if (k==69){shapetype = (shapetype + 1) % 4;}
- println(keyCode);
-  }
+   //44 = , turn off b1
+   else if (k == 44){  b1bool = ! b1bool;  }
+   //46 = . turn off b2
+   else if (k == 46){ b2bool = ! b2bool  ; }
+   //45 = - turn off l
+   else if (k == 47){ lbool = ! lbool ;  }
+   //521 = * turn off alpha
+   else if (k == 93){ alphabool = ! alphabool ;  }
+   //67 = c makes the alphafak lower
+   else if (k == 67){ alphafak -= 0.1;  }
+   //86 = v makes the alphafak higher
+   else if (k == 86){alphafak += 0.1;  }
+   // Enter key makes the lines colorfull
+   else if (k == 10){
+     colorbool = ! colorbool;
+     stroke(linecolor);
+   }
+   // 113 = q makes draw balls instead of lines
+   else if (k==69){shapetype = (shapetype + 1) % 4;}
+   println(keyCode);
+}
   
   
 void draw() {
-  
+    translate(centerx,centery);
     if (savebool){
       //saveFrame();
       // Note that #### will be replaced with the frame number. Fancy!
@@ -255,9 +259,6 @@ void draw() {
     } 
   
     //if (mouseButton == LEFT){
-    
-      
-    
     
     strokeWeight(strokewidth); //strichbreite
     //}
@@ -357,18 +358,30 @@ void draw() {
    //set the asymmetry of the arrows
    mitte = beatmittel;
    //for the nextarrows the ratios will be given as input
-   v1 = b1/b2;
-   v2 = b1/l;
+   //v1 = b1/b2;
+   //v2 = b1/l;
    //--------------------------------------------------
    // slow down the parameter change
+   /*
    slow_alpha    = (slow_alpha + alpha/slowfac)/(1+1/slowfac);
    slow_b1       = (slow_b1 + b1/slowfac)/(1+1/slowfac);
    slow_b2       = (slow_b2 + b2/slowfac)/(1+1/slowfac);
    slow_l        = (slow_l +  l/slowfac )/(1+1/slowfac);
    alpha1        = slow_alpha;
    slow_distance = (slow_distance +  distance/slowfac )/(1+1/slowfac);
+   */  
+   slow_alpha    += (alpha - slow_alpha)/slowfac/(1+1/slowfac);
+   slow_b1       += (b1    - slow_b1   )/slowfac/(1+1/slowfac);
+   slow_b2       += (b2    - slow_b2   )/slowfac/(1+1/slowfac);
+   slow_l        += (l     - slow_l    )/slowfac/(1+1/slowfac);
+   alpha1         = slow_alpha;
+   slow_distance  = (slow_distance +  distance/slowfac )/(1+1/slowfac);
+   //   
    distance      = slow_distance;
+   v1 = slow_b1/slow_b2;
+   v2 = slow_b1/slow_l;
    newarrows = makeArrow(slow_alpha,slow_b1,slow_b2,slow_l,mitte,alpha1,mousept,rotphi);
+   
    //newarrows = makeArrow(alpha,b1,b2,l,mitte,alpha1,mousept,rotphi);
    //println(nal);
    //float[][][] arrows = new float[7][2][N];
@@ -383,13 +396,15 @@ void draw() {
      printballs(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
    }
    else if (shapetype == 2){ 
+     v1 = max(v1,0.2);
      printsplines(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
+     // printparameters();
    }
    else if (shapetype == 3){ 
      printtriangles(newarrows,slow_alpha,mitte,v1,v2,alpha1,ebenen,colorbool);
    }
     //------------------------------------------------------------------------------------------
-  
+    //printparameters();
 
   //endRecord();
    /*
