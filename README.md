@@ -84,8 +84,8 @@ q 		: each sequence is saved from pushing until pushing again - is disabled in c
 ### turn off sensitivity on parameters
 ,		: turn off / on sensitivity of arrow-head-width (b1)   
 .		: turn off / on sensitivity of shaft-width (b2)   
--		: turn off / on sensitivity of arrow-shaft-length (l) 
-*		: turn off / on sensitivity on arrow-tip-angle (alpha)
+\-		: turn off / on sensitivity of arrow-shaft-length (l)  
+\*		: turn off / on sensitivity on arrow-tip-angle (alpha)  
 ### change shape type
 q		: switch to different shape-types, straight lines, splines, ellipses
 
