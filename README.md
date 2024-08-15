@@ -87,5 +87,5 @@ q 		: each sequence is saved from pushing until pushing again - is disabled in c
 \-		: turn off / on sensitivity of arrow-shaft-length (l)  
 \*		: turn off / on sensitivity on arrow-tip-angle (alpha)  
 ### change shape type
-q		: switch to different shape-types, straight lines, splines, ellipses
+e		: switch to different shape-types: straight lines, splines, ellipses, triangles
 
