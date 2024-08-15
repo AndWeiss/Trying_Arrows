@@ -46,22 +46,22 @@ The following parameters can be manipulated:
 ### colors
 w		: white backround with black lines   
 b		: black backround with white lines  
-ENTER	: turn on/off colorfull lines
+ENTER	: turn on/off colorfull lines 
 ### general size 
-f		: increase the factor for general size of the geometry
-d		: decrease the factor for general size of the geometry
+f		: increase the factor for general size of the geometry  
+d		: decrease the factor for general size of the geometry  
 ### asymmetry
-m		: increase asymmetry factor to the right side
-n		: increase asymmetry factor to the left side
+m		: increase asymmetry factor to the right side  
+n		: increase asymmetry factor to the left side  
 ### width arrow head
-h		: increase width of the arrow head (from point 0 to point 2)
-g		: increase width of the arrow head (from point 0 to point 2)
-### length of arrow stem (distance from point 5 to 6 and 3 to 4)
-l		: increase length factor
-k		: decrease length factor
-### width of arrow-stem (distance from point 6 to 3 and 5 to 4)
-p		: increase width of arrow-stem
-o		: increase width of arrow-stem
+h		: increase width of the arrow head (from point 0 to point 2)  
+g		: increase width of the arrow head (from point 0 to point 2)  
+### length of arrow stem (distance from point 5 to 6 and 3 to 4) 
+l		: increase length factor  
+k		: decrease length factor  
+### width of arrow-stem (distance from point 6 to 3 and 5 to 4) 
+p		: increase width of arrow-stem  
+o		: increase width of arrow-stem  
 ### line thickness
 
   //Strichbreite
