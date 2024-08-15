@@ -62,74 +62,30 @@ k		: decrease length factor
 ### width of arrow-stem (distance from point 6 to 3 and 5 to 4) 
 p		: increase width of arrow-stem  
 o		: increase width of arrow-stem  
+### angle of the arrow-tip (alpha)
+v		: increase angle factor
+c		: decrease angle factor
 ### line thickness
-
-  //Strichbreite
-  else if (k == 39 ){//taste links
-    if (strokewidth <= 1){
-      strokewidth = abs(strokewidth) + 0.1; 
-    }
-    else{ 
-        strokewidth = strokewidth+1; }
-  } 
-  else if (k == 37 ){      //taste rechts
-    if (strokewidth <= 1){
-      strokewidth = max(abs(strokewidth) - 0.1,0.1); 
-    }
-    else{
-      strokewidth = strokewidth-1; 
-    }
-  }
-  //the angle of the arrows taste up
-  else if (k == 38){
-    slowfac +=500;
-  }
-  //the angle of the arrows taste down
-  else if (k==40) {
-    slowfac += -500;
-    slowfac = max(slowfac,1);
-    println(slowfac);
-  }
-  //rotation x and y---------------------------------
-  else if (k==88)  { //x
-      if(abs(rotfak) < 1 ){ rotfak = rotfak + 0.1; }
-      else{rotfak = rotfak + 1;}   } //taste p
-  else if (k==89)  { //y
-     if(abs(rotfak) <= 1 ){ rotfak = rotfak - 0.1; }
-     else{                rotfak = rotfak - 1;   }  }  
-  //-------------------------------------------------   
-  //distance-Faktor 
-  else if (k == 65){disfak = disfak - 50; } //taste a
-  else if (k == 83){disfak = disfak + 50; } //taste s
-  //set if the angle of the arrows should change randomly
-  //key "r"
-  else if (k == 82){ 
-    randombool = ! randombool ;
-    println("random is: ", randombool);
-    }
-   else if (k == 81){ //taste q for saving
-    //savebool = ! savebool ;
-    println("savebool is: ", savebool);
-    }
-   //44 = , turn off b1
-   else if (k == 44){  b1bool = ! b1bool;  }
-   //46 = . turn off b2
-   else if (k == 46){ b2bool = ! b2bool  ; }
-   //45 = - turn off l
-   else if (k == 47){ lbool = ! lbool ;  }
-   //521 = * turn off alpha
-   else if (k == 93){ alphabool = ! alphabool ;  }
-   //67 = c makes the alphafak lower
-   else if (k == 67){ alphafak -= 0.1;  }
-   //86 = v makes the alphafak higher
-   else if (k == 86){alphafak += 0.1;  }
-   // Enter key makes the lines colorfull
-   else if (k == 10){
-     colorbool = ! colorbool;
-     stroke(linecolor);
-   }
-   // 113 = q makes draw balls instead of lines
-   else if (k==69){shapetype = (shapetype + 1) % 4;}
-   println(keyCode);
-}
+right	: increase line thickness  
+left	: decrease line thickness  
+### slowness
+up		: increase slow factor  
+down	: decrease slow factor (make the reaktion faster)  
+### rotation
+x		: increase rotation factor  
+y		: decrease rotation factor  
+### distance of child arrows to parant
+s		: increase distance factor  
+a		: decrease distance factor  
+### random arrow angle
+r		: the angle of the arrow tip (and simultaniously the angle of the head) is changed randomly  
+### saving screenshots 
+q 		: each sequence is saved from pushing until pushing again - is disabled in code to avoid unwanted large data amound  
+### turn off sensitivity on parameters
+,		: turn off / on sensitivity of arrow-head-width (b1)   
+.		: turn off / on sensitivity of shaft-width (b2)   
+-		: turn off / on sensitivity of arrow-shaft-length (l) 
+*		: turn off / on sensitivity on arrow-tip-angle (alpha)
+### change shape type
+q		: switch to different shape-types, straight lines, splines, ellipses
 
