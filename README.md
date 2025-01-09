@@ -1,8 +1,12 @@
 # Trying_Arrows
-“Trying Arrows” creates visuals based on an arrow geometry reacting with sound input. 
+
+Creates visuals based on an arrow geometry reacting with sound input. 
+
+A demonstration can be found here: [youtube](https://youtu.be/OaUB8zadE4c?si=N3zkjSp9rzDUOqJf)
 
 It is programmed with processing version 3+ https://processing.org/download/
-Additionally the papaya library, for matrix multiplication must be installed http://adilapapaya.com/papayastatistics/
+Additionally the papaya library, for matrix manipulation must be installed http://adilapapaya.com/papayastatistics/
+The minim library is also mandatory.
 
 The basic shape is an arrow, which is defined by 7 points. Depending on the frequencies of the sound input 
 the parameters of the arrow are changing and can either be identified as an arrow, or as an abstract geometry. 
